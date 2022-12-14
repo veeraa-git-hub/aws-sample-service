@@ -40,8 +40,18 @@ public class MerchantService {
             merchant = merchantCache.get(merchantId);
             logger.info("Merchant Info retrieved. Name : {}, Id : {}", merchant.getMerchantName(), merchant.getMerchantId());
         } else {
-            logger.info("Merchant Info does not exist. Id : {}", merchantId);
+            logger.info("Merchant Info does not exist. Id : {}, returning default one", merchantId);
+            merchant = getDefaultMerchant();
         }
         return merchant;
+    }
+    
+    private Merchant getDefaultMerchant() {
+        Merchant merchant = new Merchant();
+        merchant.setMerchantId(UUID.randomUUID().toString());
+        merchant.setAppName(appProps.getAppName());
+        merchant.setMerchantName("State Farm Auto - Default");
+        merchant.setMerchantGroup("State Farm");
+        return merch
     }
 }
